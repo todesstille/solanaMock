@@ -11,5 +11,11 @@ exports.Mock = class Mock {
         this.getProvider = function() {
             return this._provider;
         }
+        this.createToken = createToken;
     }
+}
+
+async function createToken() {
+    const {createNewToken} = require('./token.js');
+    return createNewToken(this._anchor);
 }

@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "git@github.com:todesstille/solanaMock.git",
   "author": "Dmitry Redkin <tanatonaut@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@solana/spl-token": "^0.3.6"
+  }
 }
