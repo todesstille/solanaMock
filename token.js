@@ -23,12 +23,12 @@ async function createMint(decimals) {
             })
         )
         tx.add(
-            spl.Token.createInitMintInstruction(
-                spl.TOKEN_PROGRAM_ID,
+            spl.createInitializeMintInstruction(
                 tokenMint.publicKey,
                 decimals,
                 this._provider.wallet.publicKey,
                 this._provider.wallet.publicKey,
+                spl.TOKEN_PROGRAM_ID
             )
         );
         const signature = await this._provider.sendAndConfirm(tx, [tokenMint]);
