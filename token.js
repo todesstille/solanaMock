@@ -4,7 +4,7 @@ exports.createNewToken = async function createNewToken(anchor) {
     return {
         _anchor: anchor,
         _provider: anchor.AnchorProvider.env(),
-        createMint: createMint(decimals),
+        createMint: createMint,
     }
 }
 
