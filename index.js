@@ -8,5 +8,8 @@ exports.Mock = class Mock {
         this.createKeypair = function() {
             return new this._anchor.web3.Keypair()
         }
+        this.getProvider = function() {
+            return this._provider;
+        }
     }
 }
