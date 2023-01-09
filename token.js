@@ -8,6 +8,7 @@ exports.createNewToken = async function createNewToken(anchor) {
     }
 }
 
+// TODO: update spl.Token.createInitMintInstructions and update version to ^0.3.6
 async function createMint(decimals) {
     const tokenMint = new this._anchor.web3.Keypair();
     const rentExempt =  await this._provider.connection.getMinimumBalanceForRentExemption(spl.MintLayout.span);
@@ -30,7 +31,7 @@ async function createMint(decimals) {
                 this._provider.wallet.publicKey,
             )
         );
-        const signature = await this._provider.send(tx, [tokenMint]);
+        const signature = await this._provider.sendAndConfirm(tx, [tokenMint]);
         console.log(`[${tokenMint.publicKey}] Created new mint account at ${signature}`);
         return tokenMint.publicKey;
 }
