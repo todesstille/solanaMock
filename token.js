@@ -4,22 +4,23 @@ exports.createNewToken = async function createNewToken(anchor, decimals) {
     return {
         _anchor: anchor,
         _provider: anchor.AnchorProvider.env(),
-        mintAddress: await createMint(decimals),
+        mintAddress: await createMint(anchor, decimals),
         getOrCreateAssociatedAccount: getOrCreateAssociatedAccount,
         mint: mint,
         balanceOf: balanceOf,
     }
 }
 
-async function createMint(decimals) {
-    const tokenMint = new this._anchor.web3.Keypair();
-    const rentExempt =  await this._provider.connection.getMinimumBalanceForRentExemption(spl.MintLayout.span);
-    let tx = new this._anchor.web3.Transaction();
+async function createMint(anchor, decimals) {
+    const provider = anchor.AnchorProvider.env();
+    const tokenMint = new anchor.web3.Keypair();
+    const rentExempt =  await provider.connection.getMinimumBalanceForRentExemption(spl.MintLayout.span);
+    let tx = new anchor.web3.Transaction();
         tx.add(
-            this._anchor.web3.SystemProgram.createAccount({
+            anchor.web3.SystemProgram.createAccount({
                 programId: spl.TOKEN_PROGRAM_ID,
                 space: spl.MintLayout.span,
-                fromPubkey: this._provider.wallet.publicKey,
+                fromPubkey: provider.wallet.publicKey,
                 newAccountPubkey: tokenMint.publicKey,
                 lamports: rentExempt,
             })
@@ -28,12 +29,12 @@ async function createMint(decimals) {
             spl.createInitializeMintInstruction(
                 tokenMint.publicKey,
                 decimals,
-                this._provider.wallet.publicKey,
-                this._provider.wallet.publicKey,
+                provider.wallet.publicKey,
+                provider.wallet.publicKey,
                 spl.TOKEN_PROGRAM_ID
             )
         );
-        const signature = await this._provider.sendAndConfirm(tx, [tokenMint]);
+        const signature = await provider.sendAndConfirm(tx, [tokenMint]);
         console.log(`[${tokenMint.publicKey}] Created new mint account at ${signature}`);
         return tokenMint.publicKey;
 }
