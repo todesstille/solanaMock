@@ -12,7 +12,7 @@ exports.Mock = class Mock {
             return this._provider;
         }
         this.transfer = transfer;
-        this.balanceOf = balanceOf;
+        this.balanceOf = getBalance;
         this.createToken = createToken;
     }
 }
@@ -34,4 +34,6 @@ async function transfer(from, to, amount) {
     const signature = await this._provider.sendAndConfirm(tx, [from]);
 }
 
-async function balanceOf() {}
+async function getBalance(user) {
+    return this._provider.connection.getBalance(user)
+}

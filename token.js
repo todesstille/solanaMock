@@ -35,7 +35,6 @@ async function createMint(anchor, decimals) {
             )
         );
         const signature = await provider.sendAndConfirm(tx, [tokenMint]);
-        console.log(`[${tokenMint.publicKey}] Created new mint account at ${signature}`);
         return tokenMint.publicKey;
 }
 
