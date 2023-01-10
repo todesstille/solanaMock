@@ -15,7 +15,7 @@ exports.Mock = class Mock {
     }
 }
 
-async function createToken() {
+async function createToken(decimals) {
     const {createNewToken} = require('./token.js');
-    return createNewToken(this._anchor);
+    return createNewToken(this._anchor, decimals);
 }
