@@ -54,6 +54,7 @@ async function mint(address, amount) {
         this._provider.wallet.payer,
         this.mintAddress,
         address,
+        this._provider.wallet.payer,
         amount,
     )
 }
