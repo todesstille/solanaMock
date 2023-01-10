@@ -1,5 +1,5 @@
 # Mock library for Anchor tests
-import:
+### Import
 ```
 import { Mock } from "@todesstille/mocksolana";
 const mock = new Mock(anchor);

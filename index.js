@@ -11,6 +11,8 @@ exports.Mock = class Mock {
         this.getProvider = function() {
             return this._provider;
         }
+        this.transfer = transfer;
+        this.balanceOf = balanceOf;
         this.createToken = createToken;
     }
 }
@@ -19,3 +21,17 @@ async function createToken(decimals) {
     const {createNewToken} = require('./token.js');
     return createNewToken(this._anchor, decimals);
 }
+
+async function transfer(from, to, amount) {
+    let tx = new this._anchor.web3.Transaction();
+    tx.add(
+        this._anchor.web3.SystemProgram.transfer({
+            fromPubkey: from.publicKey,
+            toPubkey: to,
+            lamports: amount,
+        })
+    )
+    const signature = await this._provider.sendAndConfirm(tx, [from]);
+}
+
+async function balanceOf() {}
