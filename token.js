@@ -41,7 +41,7 @@ async function createMint(anchor, decimals) {
 
 async function getOrCreateAssociatedAccount(account) {
     return await spl.getOrCreateAssociatedTokenAccount(
-        this._provider,
+        this._provider.connection,
         this._provider.wallet,
         this.mintAddress,
         account,
@@ -50,7 +50,7 @@ async function getOrCreateAssociatedAccount(account) {
 
 async function mint(address, amount) {
     await spl.mintTo(
-        this._provider,
+        this._provider.connection,
         this._provider.wallet,
         this.mintAddress,
         address,
