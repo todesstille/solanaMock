@@ -12,7 +12,7 @@ exports.Mock = class Mock {
             return this._provider;
         }
         this.transfer = transfer;
-        this.balanceOf = getBalance;
+        this.getBalance = getBalance;
         this.createToken = createToken;
     }
 }
